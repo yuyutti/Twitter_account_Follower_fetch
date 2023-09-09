@@ -76,6 +76,7 @@ async function login(page){
             const newCookies = await page.cookies();
             try{
                 fs.writeFileSync('./data/cookies.json', JSON.stringify(newCookies));
+                console.log("ok!")
             }
             catch(error){
                 console.log(error)
