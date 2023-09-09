@@ -1,1 +1,5 @@
-# EsportsTeam-Followers
+# Twitter_account_Follower_fetch
+
+envいじって自力でがんばってください！
+
+くろいーろんのせいでログインしないとユーザーデータ吸えないので多分規約違反だけどクローラー用のxアカウント作って使うことをお勧めします
