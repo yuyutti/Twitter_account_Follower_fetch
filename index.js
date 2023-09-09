@@ -74,7 +74,12 @@ async function login(page){
             await page.waitForNavigation({ waitUntil: 'networkidle2' });
     
             const newCookies = await page.cookies();
-            fs.writeFileSync('./data/cookies.json', JSON.stringify(newCookies));
+            try{
+                fs.writeFileSync('./data/cookies.json', JSON.stringify(newCookies));
+            }
+            catch(error){
+                console.log(error)
+            }
             return true
         }
     }
