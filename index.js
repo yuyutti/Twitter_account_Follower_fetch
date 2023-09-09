@@ -5,7 +5,7 @@ const app = express()
 require('dotenv').config();
 
 let cookies = [];
-cookies = JSON.parse(fs.readFileSync('./data/cookies.json', 'utf8'));
+cookies = JSON.parse(fs.readFileSync('/opt/Twitter_account_Follower_fetch/data/cookies.json', 'utf8'));
 
 const TwitterId = process.env.TWITTER_ID
 const TwitterPassword = process.env.TWITTER_PASSWORD
