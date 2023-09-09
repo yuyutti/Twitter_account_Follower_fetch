@@ -75,7 +75,7 @@ async function login(page){
     
             const newCookies = await page.cookies();
             try{
-                fs.writeFileSync('./data/cookies.json', JSON.stringify(newCookies));
+                fs.writeFileSync('/opt/Twitter_account_Follower_fetch/data/cookies.json', JSON.stringify(newCookies));
                 console.log("ok!")
             }
             catch(error){
