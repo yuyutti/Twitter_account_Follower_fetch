@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const express = require('express')
+const express = require('express');
 const app = express()
 require('dotenv').config();
 
 let cookies = [];
-cookies = JSON.parse(fs.readFileSync('/opt/Twitter_account_Follower_fetch/data/cookies.json', 'utf8'));
+cookies = JSON.parse(fs.readFileSync('./data/cookies.json', 'utf8'));
 
 const TwitterId = process.env.TWITTER_ID
 const TwitterPassword = process.env.TWITTER_PASSWORD
@@ -24,7 +24,7 @@ app.get('/user', async(req,res) => {
 
 async function followers(username){
     try{
-        const browser = await puppeteer.launch({ headless: "false", args: ['--no-sandbox'] });
+        const browser = await puppeteer.launch({ headless: "new", args: ['--no-sandbox', '--disable-set'] });
         const page = await browser.newPage();
     
         await login(page)
@@ -33,9 +33,11 @@ async function followers(username){
         }
         await page.goto(`https://twitter.com/${username}`)
     
-        await page.waitForTimeout(1000);
-        const followersCountSelector = `a[href="/${username}/followers"] > span > span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0`;
+        const followersCountSelector = `a[href="/${username}/following"] > span > span:first-child`;
+        await page.waitForSelector(followersCountSelector);
+        
         const followersCount = await page.$eval(followersCountSelector, el => el.textContent);
+        console.log(followersCount);   
         await browser.close();
         return followersCount
     }
@@ -75,7 +77,7 @@ async function login(page){
     
             const newCookies = await page.cookies();
             try{
-                fs.writeFileSync('/opt/Twitter_account_Follower_fetch/data/cookies.json', JSON.stringify(newCookies));
+                fs.writeFileSync('./data/cookies.json', JSON.stringify(newCookies));
                 console.log("ok!")
             }
             catch(error){
